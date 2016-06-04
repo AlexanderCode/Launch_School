@@ -6,7 +6,7 @@
 require 'yaml'
 MESSAGES = YAML.load_file('calculator_messages.yml')
 
-def messages(message, lang='en')
+def messages(message, lang = 'en')
   MESSAGES[lang][message]
 end
 
@@ -40,7 +40,7 @@ end
 number1 = ''
 number2 = ''
 
-prompt (messages('welcome', LANGUAGE))
+prompt messages('welcome', LANGUAGE)
 puts ''
 prompt messages('name', LANGUAGE)
 name = ''
