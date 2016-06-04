@@ -3,12 +3,25 @@
 # perform the operation on the two numbers
 # output the result
 
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+
+def messages(message, lang='en')
+  MESSAGES[lang][message]
+end
+
+LANGUAGE = 'en'
+
 def prompt(message)
   puts "=> #{message}"
 end
 
-def valid_number?(num)
-  num.to_i != 0
+def valid_number?(input)
+  input.to_i.to_s == input
+end
+
+def float?(input)
+  input.to_f.to_s == input
 end
 
 def operation_to_message(op)
@@ -27,60 +40,56 @@ end
 number1 = ''
 number2 = ''
 
-prompt "Hello and welcome to Alex's calculator!"
+prompt (messages('welcome', LANGUAGE))
 puts ''
-prompt "What is your name?"
+prompt messages('name', LANGUAGE)
 name = ''
 
 loop do
   name = gets.chomp
   if name.empty?
-    prompt "I need a name!"
+    prompt messages('valid_name', LANGUAGE)
   else
     break
   end
 end
 
-prompt "Hi #{name}!"
+prompt messages('greeting_name', LANGUAGE) + "#{name}!"
 
 loop do # main loop
   loop do
-    prompt "what is your first number?"
+    prompt messages('first_num', LANGUAGE)
     number1 = gets.chomp
 
     if valid_number?(number1)
       break
     else
-      prompt "That does not look like a valid number to me..."
+      prompt messages('valid_num', LANGUAGE)
     end
   end
 
-  prompt number1 + " is your first number."
+  prompt number1 + messages('first_confirm', LANGUAGE)
   puts ''
 
   loop do
-    prompt "what is your second number?"
+    prompt messages('second_num', LANGUAGE)
     number2 = gets.chomp
 
     if valid_number?(number2)
       break
     else
-      prompt "That does not look like a valid number to me..."
+      prompt messages('valid_num', LANGUAGE)
     end
   end
 
-  prompt number2 + " is your second number."
+  prompt number2 + messages('second_confirm', LANGUAGE)
   puts ''
 
-  operator_prompt = <<-MSG
-  What operation would you like to preform?
-  1) add
-  2) subtract
-  3) multiply
-  4) divide
-  MSG
-
-  prompt operator_prompt
+  prompt messages('op_choice', LANGUAGE)
+  prompt messages('op_choice1', LANGUAGE)
+  prompt messages('op_choice2', LANGUAGE)
+  prompt messages('op_choice3', LANGUAGE)
+  prompt messages('op_choice4', LANGUAGE)
 
   operator = ''
   loop do
@@ -89,11 +98,12 @@ loop do # main loop
     if %w(1 2 3 4).include?(operator)
       break
     else
-      prompt "Must choose 1, 2, 3, or 4"
+      prompt messages('valid_op', LANGUAGE)
     end
   end
 
-  prompt "#{operation_to_message(operator)} the two numbers..."
+  prompt "#{operation_to_message(operator)} " + number1 +
+         messages('working', LANGUAGE) + number2 + "..."
 
   result = case operator
            when '1'
@@ -106,10 +116,10 @@ loop do # main loop
              number1.to_f / number2.to_f
            end
 
-  prompt "your answer is #{result}!"
-  prompt "do you want to perform another calculation? (Y to calculate again)"
+  prompt messages('calc_answer', LANGUAGE) + "#{result}!"
+  prompt messages('again', LANGUAGE)
   answer = gets.chomp
   break unless answer.downcase.start_with? 'y'
 end
 
-prompt "Thank you for using Alex's Calculator!"
+prompt messages('thank', LANGUAGE)
