@@ -5,20 +5,22 @@
 # the winner is displayed
 # repeat
 
-VAILD_CHOICES = ['rock', 'paper', 'scissors']
+VAILD_CHOICES = %w(rock paper scissors)
 
 def prompt(message)
   puts "=> #{message}"
 end
 
+def win?(first, second)
+  first == 'rock' && second == 'scissors' ||
+    first == 'paper' && second == 'rock' ||
+    first == 'scissors' && second == 'paper'
+end
+
 def display_result(player, computer)
-  if player == 'rock' && computer == 'scissors' ||
-     player == 'paper' && computer == 'rock' ||
-     player == 'scissors' && computer == 'paper'
+  if win?(player, computer)
     prompt "You won!"
-  elsif player == 'rock' && computer == 'paper' ||
-        player == 'paper' && computer == 'scissors' ||
-        player == 'scissors' && computer == 'rock'
+  elsif win?(computer, player)
     prompt "Computer won!"
   else
     prompt "Its a tie!"
@@ -39,7 +41,7 @@ loop do
     if VAILD_CHOICES.include?(player)
       break
     else
-      prompt "that is not a valid choice."
+      prompt "What game are you playing? thats not one of the choices!."
     end
   end
 
