@@ -5,7 +5,7 @@
 # the winner is displayed
 # repeat
 
-VAILD_CHOICES = %w(rock paper scissors)
+VAILD_CHOICES = %w(rock paper scissors spock lizard)
 
 def prompt(message)
   puts "=> #{message}"
@@ -13,8 +13,15 @@ end
 
 def win?(first, second)
   first == 'rock' && second == 'scissors' ||
+    first == 'rock' && second == 'lizard' ||
+    first == 'paper' && second == 'spock' ||
     first == 'paper' && second == 'rock' ||
-    first == 'scissors' && second == 'paper'
+    first == 'scissors' && second == 'lizard' ||
+    first == 'scissors' && second == 'paper' ||
+    first == 'lizard' && second == 'paper' ||
+    first == 'lizard' && second == 'spock' ||
+    first == 'spock' && second == 'rock' ||
+    first == 'spock' && second == 'scissors' ||
 end
 
 def display_result(player, computer)
@@ -27,7 +34,7 @@ def display_result(player, computer)
   end
 end
 
-prompt "Welcome to Alex's Rock, Paper, Scissors game!"
+prompt "Welcome to Alex's Rock, Paper, Scissors, Lizard, and Spock game!"
 
 player = ''
 
