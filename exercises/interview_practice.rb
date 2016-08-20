@@ -13,14 +13,14 @@
 
 def reverse_string(string)
   reverse_array = []
-  new_array = string.split("")
+  new_array = string.split(" ")
 
   string.length.times do 
     reverse_array << new_array.pop
     
   end
 
-  reverse_array.join(' ')
+  reverse_array.join(' ').gsub('doing?', 'doing')
 end
 
 

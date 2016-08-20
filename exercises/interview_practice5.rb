@@ -10,7 +10,7 @@
 
 def balancer(par)
   paren_count = 0
-  par.split('').each do |char|
+  par.split('').map do |char|
     return false if paren_count < 0
     paren_count += 1 if char == "("
     paren_count -= 1 if char == ")"
