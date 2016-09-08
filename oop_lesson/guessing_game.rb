@@ -3,7 +3,7 @@ class PingGame
   attr_accessor :winning_number, :answer, :number_of_guesses, :low, :high
 
   def initialize(guesses, low_number, high_number)
-    @number_of_guesses = 7
+    @number_of_guesses = guesses
     @answer = ''
     @low = low_number
     @high = high_number
