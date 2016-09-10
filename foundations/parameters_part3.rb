@@ -26,3 +26,4 @@ end
 gather(items) do | apples, corn, cabbage, wheat|
   puts "#{apples}, #{corn}, #{cabbage}, and #{wheat}"
 end
+
