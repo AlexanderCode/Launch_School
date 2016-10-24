@@ -42,7 +42,7 @@ class BeerSong
       else        result << many_beer(number)
       end
     end
-    result.join('\n')
+    result.join("\n")
   end
 
   def verse(start)
@@ -54,6 +54,3 @@ class BeerSong
   end
 
 end
-
-
-p BeerSong.new.verses(99, 98)
