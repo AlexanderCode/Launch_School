@@ -11,60 +11,38 @@
 # i need a - method that subtracts time from the base time
 require 'date'
 
-
 class Clock
 
+  def initialize(hour, min)
+    @hour = hour
+    @min = min
+  end
+
   def self.at(hour, min = 0)
-    @@hour = hour
-    @@min = min
+    Clock.new(hour, min)
+  end
+    
+  def to_s
+    @time = format('%02d:%02d', @hour, @min)
   end
 
-  def self.to_s
-    DateTime.parse(("8:0")).strftime("%H:%M")
-  end
-
-  def hour_check
-    if @hour <= 24
-      @hour
-    else
-      @hour = @hour - 24
-    end
-  end
-
-  def negative_hour_check
-    neg_hour = 0
-  end
-
-  def positive_min_check
-    if @min < 60
-      @min
-    else
-      @hours = num / 60
-      @min = num % 60
-    end
+  def translate(min)
+    @min += min % 60
+    @hour += min / 60
+    @hour %= 24
+    self
   end
 
   def +(num)
-    @min += num
-    positive_min_check
-    hour_check
+    translate(num)
   end
 
   def -(num)
-    num * -1
-    if num < @min
-      @min - num
-    elsif num < 60 && num > @min
-      @hours -= 1
-      @min = 60 - (num - @min)
-    elsif num > 60 && num % 60 > @mins
-      @hours -= (num / 60) + 2
-      @min = 60 - (num - @mins)
-    else
-      @hours -= @hours -= num / 60
-      @mins -= num % 60
-    end
-    hour_check
+    translate(-num)
+  end
+
+  def ==(time)
+      to_s == time.to_s
   end
 
 end
